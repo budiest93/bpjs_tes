@@ -47,31 +47,45 @@ class _BeritaPageState extends State<BeritaPage> {
   }
 
   _gridItem(BeritaData data) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
+    return Card(
       child: Row(
-        children: [
-          Container(
-            child: Image.network(
-                data.mNewsImg ?? '',
-                // height: 100,
-                // width: 100,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Image.network(
+                  data.mNewsImg ?? '',
+                  fit: BoxFit.cover,
+                  height: 100,
+                  width: 100,
+              ),
             ),
-          ),
-          Container(
-            child: Column(
-              children: [
-                Text(data.mNewsTitle ?? '', style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),),
-                Text(data.mNewsDate ?? '', style: TextStyle(
-                    fontWeight: FontWeight.bold
-                ),),
-              ],
-            ),
-          )
-        ],
-      ),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Text(data.mNewsTitle ?? '', style: TextStyle(
+                          fontWeight: FontWeight.bold
+                      ),
+                       overflow: TextOverflow.ellipsis,
+                       maxLines: 2,
+                       ),
+                    ),
+                    Expanded(
+                      child: Text(data.mNewsDate ?? '', style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
     );
   }
 
@@ -86,6 +100,7 @@ class _BeritaPageState extends State<BeritaPage> {
             reverse: false,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
+              childAspectRatio: 4 / 1,
             ),
             itemBuilder: (context, index) {
               return _gridItem(snapshot.data![index]);
